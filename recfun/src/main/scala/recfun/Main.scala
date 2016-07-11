@@ -38,21 +38,20 @@ object Main {
    * Exercise 2
    */
     def balance(chars: List[Char]): Boolean = {
-    //   val filtered =chars.filterNot(_.isLetterOrDigit)
-    //    println(filtered)
 
-    val filteredList =for{
-      c <- chars
-      if(c=='(' || c==(')'))
+        def rec(balance: Int, chars: List[Char]): Boolean = (balance, chars) match {
+          case (-1, _) => false
+          case (0, Nil) => true
+          case (_) => chars.head match {
+            case '(' => rec(balance+1, chars.tail)
+            case ')' => rec(balance-1, chars.tail)
+            case _ => rec(balance, chars.tail)
+          }
+        }
+        rec(0, chars)
+      }
 
-    } yield c
 
-    def isPair(list: List[Char]): Boolean={
-      list.head=='(' && list.endsWith(List(')'))
-    }
-    isPair(filteredList)
-
-  }
   
   /**
    * Exercise 3
